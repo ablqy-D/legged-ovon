@@ -1,0 +1,8 @@
+DataSet/
+related_work/*/paper.pdf
+related_work/*/source/
+experiment/*/checkpoints/
+experiment/*/*.pt
+*.orig
+.shot-tmp/
+__pycache__/
