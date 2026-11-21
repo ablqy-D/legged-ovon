@@ -1,8 +1,8 @@
 # legged-ovon
 
-为足式机器人搭建 Open-Vocabulary Object Navigation（OVON）的 ROS2 仿真基线：在 Isaac Sim 里跑通「感知 → 语义定位 → 导航 → 闭环评测」整条链，产出可运行的系统和一份可复现的评测记录。
+为足式机器人搭建 Open-Vocabulary Object Navigation（OVON）的 ROS2 仿真基线：在 Gazebo 里跑通「感知 → 语义定位 → 导航 → 闭环评测」整条链，产出可运行的系统和一份可复现的评测记录。
 
-**核心主张：足式机器人做开放词汇目标导航，现在缺的是一条端到端、可复现的仿真评测闭环。本项目第一步是把「Isaac Sim + Nav2 + Grounding DINO + ROS2 action」这条链跑通并固定评测口径；之后任何假设（改感知、改规划、改本体控制）都只在这条基线上验证，用同一套指标和同一批失败样例比较。基线没跑通之前，不做任何「新方法」。**
+**核心主张：足式机器人做开放词汇目标导航，现在缺的是一条端到端、可复现的仿真评测闭环。本项目第一步是把「Gazebo + Nav2 + 开放词汇检测（YOLO-World/YOLOE，可换 Grounding DINO）+ ROS2 action」这条链跑通并固定评测口径；之后任何假设（改感知、改规划、改本体控制）都只在这条基线上验证，用同一套指标和同一批失败样例比较。基线没跑通之前，不做任何「新方法」。**
 
 目标：暂不锁定具体会议/比赛。2–3 个月内（≈ 2027 年 2 月中前）产出可运行的 ROS2 仿真系统 + 可复现评测记录，为后续比赛和论文选题提供依据。
 
@@ -50,8 +50,9 @@
 1. **不要自己发明术语。**解释你在做什么的时候用论文里已有的词
    （Open-Vocabulary Object Navigation / OVON、Object Goal Navigation / ObjectNav、
    Success Rate / SR、Success weighted by Path Length / SPL、Distance to Goal / DTG、
-   Isaac Sim / Isaac Lab、Nav2（behavior tree / planner / controller）、Grounding DINO、
-   ROS2 action（navigate_to_pose 与自定义 NavigateToObject）、open-vocabulary detector / VLM），别造新词。
+   Gazebo / Nav2（behavior tree / planner / controller）、open-vocabulary detector
+   （YOLO-World / YOLOE / Grounding DINO）、
+   ROS2 action（navigate_to_pose 与自定义 NavigateToObject）、VLM），别造新词。
 2. **改实验之前先说你要改什么、为什么。**不要直接动手跑。
 3. **每版实验都要有名字。**命名规则见 `experiment/results.md`，不许出现 `test2` `final_v2_new`。
 4. **跑完必须走标准化测评。**见 `experiment/evaluation.md`，不要临时挑指标。
@@ -61,6 +62,6 @@
 
 ## 环境硬约束（重要）
 
-Isaac Sim 只支持 **Linux（Ubuntu）+ NVIDIA GPU**，本机是 macOS（Darwin），跑不了仿真。
-真正的开发/运行环境得是一台 Linux + NVIDIA GPU 的机器（实验室服务器或云 GPU）。
-所有跑仿真、测指标的步骤默认在那边执行；本机只做写代码、写文档、抓文献、Git 管理。
+- 仿真用 **Gazebo**（不选 Isaac Sim）：3060 笔电只有 6GB VRAM，Isaac Sim 官方最低要求 RTX 4080 16GB，6GB 只够开空场景、带传感器就会崩；Gazebo + Nav2 在 6GB 上没问题。
+- 运行环境：3060 笔电（Ubuntu 22.04 → ROS2 Humble → Gazebo Classic 11）。本机 macOS 只做写代码、写文档、抓文献、Git。
+- 参考代码库：语义层照 [go2-semantic-nav](https://github.com/yusufdxb/go2-semantic-nav)（Go2 + Nav2 + 开放词汇检测 + 场景图 + 语言 grounding + action）搭；仿真环境用 [go2_gazebo_sim](https://github.com/OpenMind/go2_gazebo_sim)。
