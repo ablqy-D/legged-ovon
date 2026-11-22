@@ -1,3 +1,4 @@
+# 本地产物 / 大文件，不进 git
 DataSet/
 related_work/*/paper.pdf
 related_work/*/source/
@@ -6,3 +7,10 @@ experiment/*/*.pt
 *.orig
 .shot-tmp/
 __pycache__/
+
+# IDE / 系统 / TF 可视化产物
+.vscode/
+.idea/
+.DS_Store
+frames_*.pdf
+frames_*.gv

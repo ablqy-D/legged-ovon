@@ -7,16 +7,17 @@
 
 | 数据集 | 用途 | 状态 | 大小 |
 |---|---|---|---|
-| Isaac Sim / Isaac Lab 室内场景资产 | 仿真环境 | ⬜ 未下 | |
+| Gazebo Fortress 室内场景资产（`.sdf` world + 模型） | 仿真环境 | ⬜ 待用 go2_gazebo_sim 自带 world 验证 | |
+| RGB-D 相机话题（Gazebo 传感器 → ROS） | 开放词汇检测输入 | ⬜ 未接 | |
 | 目标导航 episode 集（场景 + 目标类别 + 起止位姿） | 评测用 | ⬜ 未定 | |
 
-## Isaac Sim / Isaac Lab 场景
+## Gazebo Fortress 场景
 
-**目录结构**：待定，装好环境后补。
+**目录结构**：`go2_gazebo_sim` 自带 `go2_description/worlds/{default,maze_world,walled_world}.sdf`，先用 `maze_world.sdf` 验证链路；后续自建室内场景放 `DataSet/worlds/`。
 
-**处理过程**：待定。
+**处理过程**：待定。world 是 SDF 文本，体积小的话可以进 Git。
 
-**⚠️ 坑**：Isaac Sim 资产很大（几十 GB），且只认 Linux + NVIDIA GPU；本机 macOS 下不了也跑不了，要在 Linux 机器上下。
+**⚠️ 坑**：Gazebo Classic 的 `.world` 与 Fortress 的 `.sdf` 不通用，资产必须是 Fortress 格式；模型库（Fuel）首次运行会联网下载，离线环境要提前拉。
 
 ## 目标导航 episode 集
 

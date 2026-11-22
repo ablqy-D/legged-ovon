@@ -63,5 +63,6 @@
 ## 环境硬约束（重要）
 
 - 仿真用 **Gazebo**（不选 Isaac Sim）：3060 笔电只有 6GB VRAM，Isaac Sim 官方最低要求 RTX 4080 16GB，6GB 只够开空场景、带传感器就会崩；Gazebo + Nav2 在 6GB 上没问题。
-- 运行环境：3060 笔电（Ubuntu 22.04 → ROS2 Humble → Gazebo Classic 11）。本机 macOS 只做写代码、写文档、抓文献、Git。
-- 参考代码库：语义层照 [go2-semantic-nav](https://github.com/yusufdxb/go2-semantic-nav)（Go2 + Nav2 + 开放词汇检测 + 场景图 + 语言 grounding + action）搭；仿真环境用 [go2_gazebo_sim](https://github.com/OpenMind/go2_gazebo_sim)。
+- 运行环境：3060 笔电（Ubuntu 22.04 → ROS2 Humble → **Gazebo Fortress / gz-sim 6**，经 `ros_gz_sim` + `gz_ros2_control` 接入）。本机 macOS 只做写代码、写文档、抓文献、Git。
+- 参考代码库：语义层照 [go2-semantic-nav](https://github.com/yusufdxb/go2-semantic-nav)（Go2 + Nav2 + 开放词汇检测 + 场景图 + 语言 grounding + action）搭；仿真环境用 [go2_gazebo_sim](https://github.com/OpenMind/go2_gazebo_sim)（仓库已归档，2025-12 起依赖 Fortress，不再是 Classic）。
+- **已验证的工作区（2026-11-22）**：`~/ros2_ws`（`src/go2_gazebo_sim` + 自写配置）。可运行配置在 [`experiment/bringup/`](experiment/bringup/README.md)，`~/ros2_ws/{config,launch,maps}` 软链到这里。复现报告见 [`复现/go2_gazebo_sim/README.md`](复现/go2_gazebo_sim/README.md)。

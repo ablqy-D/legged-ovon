@@ -5,6 +5,23 @@
 
 ---
 
+## 2026-11-22 · 仿真栈重新评估：Isaac Sim → Gazebo Fortress
+
+**背景：** 11-18 定的是 Isaac Sim，本机核查后发现 3060 笔电只有 6GB VRAM，Isaac Sim 官方最低要 16GB，带传感器直接崩。于是改 Gazebo。
+
+**第一次评估**落在 Gazebo Classic 11，理由是「够轻」。但实际去看参考仓库 [go2_gazebo_sim](https://github.com/OpenMind/go2_gazebo_sim) 时发现：
+- 仓库 2025-12 已归档；
+- 当前 main 的 `package.xml` 依赖 `ros_gz_sim` + `gz_ros2_control` + `libignition-gazebo6`，即 **Gazebo Fortress（gz-sim 6）**，不是 Classic；
+- Gazebo Classic 已于 2025-01 EOL。
+
+**→ 结论：仿真栈定为 Gazebo Fortress。** 理由：Ubuntu 22.04 + Humble 官方配对就是 Fortress；参考仓库开箱即用；不再同时对抗 EOL 软件和参考代码。代价是 handoff 里「Classic 11」的表述要同步改掉。
+
+**对下面 11-18 文献结论的影响：** 「足式 + 开放词汇 + 标准 SR/SPL/DTG + Nav2」的空白判断仍然成立；只是本项目的仿真底座从 Isaac Sim 换成 Fortress，和 Path planning 那篇的 Isaac Sim 基础设施不再同栈。这不影响方法层面的对比。
+
+**留下的教训：** 定仿真栈之前先看参考仓库当前的依赖，不要只看仓库名和 README 标题。
+
+---
+
 ## 2026-11-18 · 读文献的初步理解（4 篇已有 + 定下补抓方向）
 
 **已读的 4 篇，各自定位：**
